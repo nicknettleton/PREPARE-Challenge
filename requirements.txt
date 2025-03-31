@@ -1,0 +1,19 @@
+# local package
+-e .
+
+ipython==8.25.0
+jupyter==1.0.0
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.5.2
+xgboost==2.1.2
+catboost==1.2.7
+lightgbm==4.5.0
+shap==0.46.0
+MAPIE==0.9.1
+matplotlib==3.8.4
+matplotlib-inline==0.1.6
+loguru==0.7.3
+typer==0.15.2
+pathlib==1.0.1
+seaborn==0.13.2
