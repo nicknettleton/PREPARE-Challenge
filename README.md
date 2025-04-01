@@ -1,7 +1,9 @@
 # Solution - PREPARE Challenge
 
-Submission for the DrivenData "PREPARE: Pioneering Research for Early Prediction of Alzheimer's and Related Dementias EUREKA Challenge"
-https://www.drivendata.org/competitions/group/nih-nia-alzheimers-adrd-competition/
+Submission for "PREPARE: Pioneering Research for Early Prediction of Alzheimer's and Related Dementias EUREKA Challenge"
+https://www.drivendata.org/competitions/group/nih-nia-alzheimers-adrd-competition/. The competition was sponsored by the [National Institute on Aging (NIA)](https://www.nia.nih.gov/), an institute of the [National Institute of Health (NIH)](https://www.nih.gov/).
+
+
 
 Author: Nick Nettleton ([LinkedIn](https://www.linkedin.com/in/nicknettleton/), [GitHub](https://github.com/nicknettleton))
 
@@ -13,7 +15,7 @@ Licence: MIT
 
 ## Summary
 
-The objective of the competition was to predict individuals' future cognitive capacity based on social determinants, as a risk indicator for Alzheimer's. Our solution was placed #2 in the Model Area.
+The objective of the competition was to predict individuals' future cognitive capacity based on social determinants, as a risk indicator for Alzheimer's, with an emphasis on explainability of predictions. Our solution was placed #2 in the Model Area.
 
 The main prediction model is an ensemble of [LightGBM](https://lightgbm.readthedocs.io/en/stable/), [XGBoost](https://xgboost.ai/) and [CatBoost](https://catboost.ai/) regressors, implemented with a [VotingRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.VotingRegressor.html). The hyperparameters were optimized using [Optuna](https://optuna.org/).
 
