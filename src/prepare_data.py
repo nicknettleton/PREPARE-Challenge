@@ -47,7 +47,8 @@ features_12 = [
 
 # Features with more than 66% missing data in train set
 # Removing these showed a (very small) improvement in performance
-# Debateable if helpful
+# Debateable if helpful, but these were applied to our best performing model
+# so have been retained to ensure the predictions are replicable.
 features_to_drop = [
     'rjlocc_m_03', 'rjob_end_03', 'rjobend_reason_03', 'rjob_end_12', 'rjobend_reason_12', 
     'a16a_12', 'a21_12', 'a22_12', 'a33b_12'

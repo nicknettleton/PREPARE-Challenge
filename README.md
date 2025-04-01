@@ -1,6 +1,6 @@
 # Solution - PREPARE Challenge
 
-Submission for "PREPARE: Pioneering Research for Early Prediction of Alzheimer's and Related Dementias EUREKA Challenge"
+Submission for the DrivenData "PREPARE: Pioneering Research for Early Prediction of Alzheimer's and Related Dementias EUREKA Challenge"
 https://www.drivendata.org/competitions/group/nih-nia-alzheimers-adrd-competition/
 
 Author: Nick Nettleton ([LinkedIn](https://www.linkedin.com/in/nicknettleton/), [GitHub](https://github.com/nicknettleton))
@@ -13,30 +13,32 @@ Licence: MIT
 
 ## Summary
 
-The main model is an ensemble of [LightGBM](https://lightgbm.readthedocs.io/en/stable/), [XGBoost](https://xgboost.ai/) and [CatBoost](https://catboost.ai/) regressors implemented in a [VotingRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.VotingRegressor.html). The hyperparameters were optimized using [Optuna](https://optuna.org/).
+The objective of the competition was to predict individuals' future cognitive capacity based on social determinants, as a risk indicator for Alzheimer's. Our solution was placed #2 in the Model Area.
 
-A [MapieRegressor](https://mapie.readthedocs.io/) is fitted to estimate prediction intervals, and [SHAP](https://shap.readthedocs.io/) is used to generate individual and population level explanations of the predictions.
+The main prediction model is an ensemble of [LightGBM](https://lightgbm.readthedocs.io/en/stable/), [XGBoost](https://xgboost.ai/) and [CatBoost](https://catboost.ai/) regressors, implemented with a [VotingRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.VotingRegressor.html). The hyperparameters were optimized using [Optuna](https://optuna.org/).
 
-Finally, we create visualizations to bring the data to life for lay users, providing them with meaningful context and intuition about their individual predictions and the underlying factors.
+We fit a [MapieRegressor](https://mapie.readthedocs.io/) to estimate prediction intervals, and use [SHAP](https://shap.readthedocs.io/) to generate individual and population level explanations of the predictions.
+
+Finally, we create visualizations to bring the data to life for lay users, providing meaningful context and intuition about individual predictions and their underlying factors.
 
 ## Setup
 
 The project structure is based on https://github.com/drivendataorg/prize-winner-template/ and https://cookiecutter-data-science.drivendata.org/.
 
-1. Create Python 3.12.4 environment using ``make``.
+1. Create the Python 3.12.4 environment using ``make``:
 
 ```
 cd path/to/this/directory
 make create_environment
 ```
 
-2. Follow on-screen instructions to activate the environment, e.g.:
+2. Follow the on-screen instructions to activate the environment, e.g.:
 
 ```
 source activate nr_prepare
 ```
 
-3. Install the required Python packages - these are listed in  [requirements.txt](requirements.txt). (More recent  versions of XGBoost will give slightly different predictions, and the slightly out-of-date scikit-learn 1.5.2 is needed for compatibility with  XGBoost 2.1.2.)
+3. Install the required Python packages using the below command. These are listed in  [requirements.txt](requirements.txt). The code works with latest package versions as at 30 March 25, but the latest version of XGBoost will give slightly different predictions, and the slightly out-of-date scikit-learn 1.5.2 is needed for compatibility with XGBoost 2.1.2.
 
 ```
 make requirements
@@ -58,7 +60,7 @@ pip install --user ipykernel
 python -m ipykernel install --user --name=nr_prepare
 ````
 
-And select nr_prepare as the kernel in Jupyter.
+And select ``nr_prepare`` as your Python kernel in Jupyter.
 
 ###  Expected file structure before inference or training is run
 
@@ -85,15 +87,17 @@ submission
 ├── Makefile            <- Makefile with commands like `make requirements`
 ├── README.md           <- This README file
 ├── requirements.txt    <- The requirements file for reproducing the analysis environment
-└── setup.py           
+└── setup.py            <- makes project pip installable (pip install -e .) so src can be imported
 ```
 
 ## Hardware
 
-The solution was run on a MacBook Air M1 with macOS Sequoia 15.0 and 8GB memory. Both training and inference were run on CPU.
+Running the solution on a MacBook Air M1 8GB memory and macOS Sequoia 15.0:
 
 - Training time: ~3m 10s
 - Inference time: ~3s
+
+Training and inference were both run on CPU.
 
 ## Run training
 
@@ -185,9 +189,9 @@ Options:
 ```
 
 Predictions are saved to ``submission_save_path``, which is ``data/processed/test_predictions.csv`` by default.
-The output includes  prediction intervals if ``--include-mapie`` was used.
+The output includes prediction intervals if ``--include-mapie`` was used.
 
-SHAP values are not currently saved out by the command line inferface, but can be accessed through the Python interface.
+SHAP values are not currently saved to file by the command line inferface, but can be accessed through the Python interface.
 
 ### Python
 
@@ -203,7 +207,7 @@ predict(
 );
 ```
 
-To get labels, predictions intervals and SHAP explanation objects that you can work with in Python:
+To get labels, prediction intervals and SHAP explanation objects that you can work with in Python:
 
 ```python
 labels, ensemble_explanation, subestimator_explanations = predict(
@@ -222,9 +226,12 @@ Again, see [``examples.ipynb``](notebooks/examples.ipynb) for a full example
 
 ## Explainer charts
 
-SHAP values and plots are not saved directly. Instead they can be created and manipulated in Python:
+SHAP values and plots are not saved directly. Instead they can be created and manipulated in Python.
+
+First, run inference as above to get predicted labels and prediction intervals, together with SHAP Explanations for the overall ensemble and subestimators. Then you can do lots of interesting things with them, such as...
 
 ### Plot individual explainer charts
+
 ```python
 from src.visualise import visualise_prediction, visualise_decision
 
@@ -236,7 +243,7 @@ plt = visualise_prediction(labels.loc[index], train_labels_path, show=False)
 plt.show()
 
 # show the SHAP decision plot
-visualise_decision(index, ensemble_explanation, subestimator_explanations, show=False)
+plt = visualise_decision(index, ensemble_explanation, subestimator_explanations, show=False)
 plt.show()
 ```
 
@@ -254,5 +261,6 @@ plt.show()
 ```
 
 <img src="assets/beeswarm.png" alt="Beeswarm report" width="600"/>
+
 
  See [``examples.ipynb``](notebooks/examples.ipynb) for more examples.
