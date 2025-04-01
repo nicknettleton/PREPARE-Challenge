@@ -3,8 +3,6 @@
 Submission for "PREPARE: Pioneering Research for Early Prediction of Alzheimer's and Related Dementias EUREKA Challenge"
 https://www.drivendata.org/competitions/group/nih-nia-alzheimers-adrd-competition/. The competition was sponsored by the [National Institute on Aging (NIA)](https://www.nia.nih.gov/), an institute of the [National Institute of Health (NIH)](https://www.nih.gov/).
 
-
-
 Author: Nick Nettleton ([LinkedIn](https://www.linkedin.com/in/nicknettleton/), [GitHub](https://github.com/nicknettleton))
 
 Username: [NickNettleton](https://www.drivendata.org/users/NickNettleton/) 
